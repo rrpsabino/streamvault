@@ -482,6 +482,10 @@ let currentSeason = 1;
 let currentEpisode = 1;
 let currentServerIndex = 0;
 
+// Safe item store — avoids JSON-in-HTML injection issues
+const CARD_STORE = {};
+let CARD_ID = 0;
+
 // SERVER GROUPS
 const SERVER_GROUPS = {
   main: { label: '⚡ Main', color: '#2ecc71' },
@@ -562,6 +566,8 @@ function isTV(item) {
 }
 
 function cardHTML(item, type) {
+  const cid = 'c' + (++CARD_ID);
+  CARD_STORE[cid] = item;
   const poster = item.poster_path ? `${IMG}w300${item.poster_path}` : 'https://via.placeholder.com/300x450/131824/6b7591?text=No+Image';
   const title = item.title || item.name || 'Unknown';
   const year = (item.release_date || item.first_air_date || '').slice(0, 4);
@@ -569,8 +575,8 @@ function cardHTML(item, type) {
   const typeLabel = type === 'tv' ? 'TV' : 'Movie';
   const badgeClass = type === 'tv' ? 'badge-tv' : 'badge-movie';
   return `
-    <div class="movie-card" onclick="openModal(${JSON.stringify(JSON.stringify(item))}, '${type}')">
-      <img src="${poster}" alt="${title}" loading="lazy" onerror="this.src='https://via.placeholder.com/300x450/131824/6b7591?text=No+Poster'">
+    <div class="movie-card" onclick="openModalById('${cid}','${type}')">
+      <img src="${poster}" alt="" loading="lazy" onerror="this.src='https://via.placeholder.com/300x450/131824/6b7591?text=No+Poster'">
       <div class="card-rating">⭐ ${rating}</div>
       <span class="card-type-badge ${badgeClass}">${typeLabel}</span>
       <div class="card-overlay">
@@ -607,6 +613,7 @@ async function loadHero() {
 function showHero(i) {
   const m = heroMovies[i];
   if (!m) return;
+  CARD_STORE['hero_'+i] = m;
   const bg = m.backdrop_path ? `${IMG}original${m.backdrop_path}` : '';
   document.getElementById('hero-bg').style.backgroundImage = `url(${bg})`;
   const rating = m.vote_average ? m.vote_average.toFixed(1) : '';
@@ -621,11 +628,11 @@ function showHero(i) {
     </div>
     <div class="hero-overview">${m.overview || ''}</div>
     <div class="hero-btns">
-      <button class="btn-watch" onclick="openModal(${JSON.stringify(JSON.stringify(m))}, 'movie')">
+      <button class="btn-watch" onclick="openModalById('hero_'+heroIndex,'movie')">
         <svg width="14" height="14" fill="white" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
         Watch Now
       </button>
-      <button class="btn-info" onclick="openModal(${JSON.stringify(JSON.stringify(m))}, 'movie')">ℹ️ More Info</button>
+      <button class="btn-info" onclick="openModalById('hero_'+heroIndex,'movie')">ℹ️ More Info</button>
     </div>`;
 }
 
@@ -687,8 +694,13 @@ function goHome() {
 }
 
 // MODAL
-async function openModal(itemJSON, type) {
-  const item = JSON.parse(itemJSON);
+function openModalById(cid, type) {
+  const item = CARD_STORE[cid];
+  if (!item) return;
+  openModal(item, type);
+}
+
+async function openModal(item, type) {
   currentItem = item;
   currentItem.media_type = type;
   currentSeason = 1;
