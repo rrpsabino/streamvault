@@ -363,6 +363,40 @@
   }
   #toast.show { opacity: 1; }
 
+  /* CATEGORY BANNERS */
+  .category-divider { padding-bottom: 0 !important; }
+  .category-banner {
+    display: flex; align-items: center; gap: 20px;
+    padding: 22px 28px; border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.06);
+    position: relative; overflow: hidden;
+  }
+  .category-banner::before {
+    content:''; position: absolute; inset: 0;
+    opacity: 0.07;
+  }
+  .anime-banner { background: linear-gradient(135deg, #1a0a2e 0%, #0d1a2e 100%); border-color: #7c3aed44; }
+  .anime-banner::before { background: radial-gradient(circle at 80% 50%, #7c3aed, transparent 60%); opacity: 0.15; }
+  .manga-banner { background: linear-gradient(135deg, #1a1000 0%, #2a1500 100%); border-color: #d9770644; }
+  .manga-banner::before { background: radial-gradient(circle at 80% 50%, #f59e0b, transparent 60%); opacity: 0.12; }
+  .kdrama-banner { background: linear-gradient(135deg, #001a14 0%, #002a1e 100%); border-color: #05966944; }
+  .kdrama-banner::before { background: radial-gradient(circle at 80% 50%, #10b981, transparent 60%); opacity: 0.12; }
+  .filipino-banner { background: linear-gradient(135deg, #001a2e 0%, #00102a 100%); border-color: #1d4ed844; }
+  .filipino-banner::before { background: radial-gradient(circle at 80% 50%, #3b82f6, transparent 60%); opacity: 0.14; }
+  .cat-icon { font-size: 48px; line-height: 1; position: relative; z-index: 1; }
+  .cat-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px; letter-spacing: 3px; color: #fff;
+    line-height: 1; position: relative; z-index: 1;
+  }
+  .cat-sub { font-size: 12px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; margin-top: 4px; position: relative; z-index: 1; }
+
+  /* TYPE BADGES for new categories */
+  .badge-anime { background: #7c3aed; color: #fff; }
+  .badge-manga { background: #d97706; color: #fff; }
+  .badge-kdrama { background: #059669; color: #fff; }
+  .badge-filipino { background: #1d4ed8; color: #fff; }
+
   /* SCROLLBAR */
   ::-webkit-scrollbar { width: 6px; }
   ::-webkit-scrollbar-track { background: var(--bg); }
@@ -388,6 +422,9 @@
     <a class="active" onclick="filterByType('all', this)">Home</a>
     <a onclick="filterByType('movie', this)">Movies</a>
     <a onclick="filterByType('tv', this)">TV Shows</a>
+    <a onclick="jumpToSection('anime-section')">Anime</a>
+    <a onclick="jumpToSection('kdrama-section')">K-Drama</a>
+    <a onclick="jumpToSection('filipino-section')">Filipino</a>
     <a onclick="filterSection('trending', this)">Trending</a>
   </div>
   <div class="nav-search">
@@ -446,6 +483,99 @@
       </div>
       <div class="movies-grid" id="toprated-grid"></div>
     </div>
+
+    <!-- ANIME -->
+    <div class="section category-divider" id="anime-section">
+      <div class="category-banner anime-banner">
+        <span class="cat-icon">🍥</span>
+        <div>
+          <div class="cat-title">ANIME</div>
+          <div class="cat-sub">Japanese Animation</div>
+        </div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">🔥 Popular Anime</div>
+      </div>
+      <div class="movies-grid" id="anime-popular-grid"></div>
+    </div>
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">🆕 Latest Anime</div>
+      </div>
+      <div class="movies-grid" id="anime-latest-grid"></div>
+    </div>
+
+    <!-- MANGA -->
+    <div class="section category-divider" id="manga-section">
+      <div class="category-banner manga-banner">
+        <span class="cat-icon">📚</span>
+        <div>
+          <div class="cat-title">MANGA</div>
+          <div class="cat-sub">Comic Adaptations</div>
+        </div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">🔥 Popular Manga Adaptations</div>
+      </div>
+      <div class="movies-grid" id="manga-popular-grid"></div>
+    </div>
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">🆕 Latest Manga Adaptations</div>
+      </div>
+      <div class="movies-grid" id="manga-latest-grid"></div>
+    </div>
+
+    <!-- K-DRAMA -->
+    <div class="section category-divider" id="kdrama-section">
+      <div class="category-banner kdrama-banner">
+        <span class="cat-icon">🇰🇷</span>
+        <div>
+          <div class="cat-title">K-DRAMA</div>
+          <div class="cat-sub">Korean Series</div>
+        </div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">🔥 Popular K-Dramas</div>
+      </div>
+      <div class="movies-grid" id="kdrama-popular-grid"></div>
+    </div>
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">🆕 Latest K-Dramas</div>
+      </div>
+      <div class="movies-grid" id="kdrama-latest-grid"></div>
+    </div>
+
+    <!-- FILIPINO -->
+    <div class="section category-divider" id="filipino-section">
+      <div class="category-banner filipino-banner">
+        <span class="cat-icon">🇵🇭</span>
+        <div>
+          <div class="cat-title">FILIPINO / TAGALOG</div>
+          <div class="cat-sub">Pelikulang Pilipino</div>
+        </div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">🔥 Popular Filipino Movies</div>
+      </div>
+      <div class="movies-grid" id="filipino-popular-grid"></div>
+    </div>
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">🆕 Latest Filipino Movies</div>
+      </div>
+      <div class="movies-grid" id="filipino-latest-grid"></div>
+    </div>
+
   </div>
 
   <!-- SEARCH PAGE -->
@@ -493,6 +623,7 @@ const SERVER_GROUPS = {
   primevid: { label: '👑 PrimeVid', color: '#f5a623' },
   hindicast: { label: '🇮🇳 HindiCast', color: '#e8473f' },
   torrent: { label: '🧲 Torrent', color: '#9b59b6' },
+  bonus: { label: '🌐 Bonus', color: '#06b6d4' },
 };
 
 // SERVERS per type
@@ -524,6 +655,10 @@ function getServers(item, season, episode) {
       // TORRENT
       { name: 'Torrent 1',    group: 'torrent',  url: `https://dl.vidsrc.vip/tv/${id}/${season}/${episode}` },
       { name: 'Torrent 2',    group: 'torrent',  url: `https://vidsrc.me/embed/tv?tmdb=${id}&season=${season}&episode=${episode}` },
+      // BONUS
+      { name: 'StreamZ',      group: 'bonus',    url: `https://2embed.org/embedtv/${id}&s=${season}&e=${episode}` },
+      { name: 'CineStream',   group: 'bonus',    url: `https://player.smashy.stream/tv/${id}?s=${season}&e=${episode}` },
+      { name: 'NovaCast',     group: 'bonus',    url: `https://watchsomuch.to/embed/tv/${id}/${season}/${episode}` },
     ];
   } else {
     return [
@@ -548,6 +683,10 @@ function getServers(item, season, episode) {
       // TORRENT
       { name: 'Torrent 1',    group: 'torrent',  url: `https://dl.vidsrc.vip/movie/${id}` },
       { name: 'Torrent 2',    group: 'torrent',  url: `https://vidsrc.me/embed/movie?tmdb=${id}` },
+      // BONUS
+      { name: 'StreamZ',      group: 'bonus',    url: `https://watchsomuch.to/embed/movie/${id}` },
+      { name: 'CineStream',   group: 'bonus',    url: `https://2embed.org/embed/${id}` },
+      { name: 'NovaCast',     group: 'bonus',    url: `https://player.smashy.stream/movie/${id}` },
     ];
   }
 }
@@ -572,8 +711,10 @@ function cardHTML(item, type) {
   const title = item.title || item.name || 'Unknown';
   const year = (item.release_date || item.first_air_date || '').slice(0, 4);
   const rating = item.vote_average ? item.vote_average.toFixed(1) : 'N/A';
-  const typeLabel = type === 'tv' ? 'TV' : 'Movie';
-  const badgeClass = type === 'tv' ? 'badge-tv' : 'badge-movie';
+  const labelMap = { tv:'TV', movie:'Movie', anime:'Anime', manga:'Manga', kdrama:'K-Drama', filipino:'Filipino' };
+  const badgeMap = { tv:'badge-tv', movie:'badge-movie', anime:'badge-anime', manga:'badge-manga', kdrama:'badge-kdrama', filipino:'badge-filipino' };
+  const typeLabel = labelMap[type] || 'Movie';
+  const badgeClass = badgeMap[type] || 'badge-movie';
   return `
     <div class="movie-card" onclick="openModalById('${cid}','${type}')">
       <img src="${poster}" alt="" loading="lazy" onerror="this.src='https://via.placeholder.com/300x450/131824/6b7591?text=No+Poster'">
@@ -668,6 +809,78 @@ async function loadTopRated() {
   renderGrid(grid, data.results.slice(0, 12), 'movie');
 }
 
+// ANIME — genre 16, language ja
+async function loadAnimePopular() {
+  const grid = document.getElementById('anime-popular-grid');
+  skeletons(grid);
+  const data = await apiFetch('/discover/tv?with_genres=16&with_original_language=ja&sort_by=popularity.desc&');
+  renderGrid(grid, data.results.slice(0, 16), 'anime');
+}
+async function loadAnimeLatest() {
+  const grid = document.getElementById('anime-latest-grid');
+  skeletons(grid);
+  const data = await apiFetch('/discover/tv?with_genres=16&with_original_language=ja&sort_by=first_air_date.desc&first_air_date.lte=2025-12-31&vote_count.gte=10&');
+  renderGrid(grid, data.results.slice(0, 16), 'anime');
+}
+
+// MANGA (comic book source / graphic novel adaptations)
+async function loadMangaPopular() {
+  const grid = document.getElementById('manga-popular-grid');
+  skeletons(grid);
+  const [tv, mv] = await Promise.all([
+    apiFetch('/discover/tv?with_keywords=210024|6075&sort_by=popularity.desc&'),
+    apiFetch('/discover/movie?with_keywords=210024|6075&sort_by=popularity.desc&'),
+  ]);
+  const combined = [...tv.results.slice(0,8).map(i=>({...i,_type:'tv'})),
+                    ...mv.results.slice(0,8).map(i=>({...i,_type:'movie'}))];
+  combined.sort((a,b)=>b.popularity-a.popularity);
+  grid.innerHTML = combined.slice(0,16).map(item => cardHTML(item, item._type || (item.first_air_date?'tv':'movie'))).join('');
+}
+async function loadMangaLatest() {
+  const grid = document.getElementById('manga-latest-grid');
+  skeletons(grid);
+  const data = await apiFetch('/discover/tv?with_genres=16&with_original_language=ja&sort_by=first_air_date.desc&vote_count.gte=5&first_air_date.lte=2025-12-31&');
+  renderGrid(grid, data.results.slice(0, 16), 'manga');
+}
+
+// K-DRAMA — language ko
+async function loadKdramaPopular() {
+  const grid = document.getElementById('kdrama-popular-grid');
+  skeletons(grid);
+  const data = await apiFetch('/discover/tv?with_original_language=ko&sort_by=popularity.desc&');
+  renderGrid(grid, data.results.slice(0, 16), 'kdrama');
+}
+async function loadKdramaLatest() {
+  const grid = document.getElementById('kdrama-latest-grid');
+  skeletons(grid);
+  const data = await apiFetch('/discover/tv?with_original_language=ko&sort_by=first_air_date.desc&first_air_date.lte=2025-12-31&vote_count.gte=5&');
+  renderGrid(grid, data.results.slice(0, 16), 'kdrama');
+}
+
+// FILIPINO — language tl (Tagalog), region PH
+async function loadFilipinoPopular() {
+  const grid = document.getElementById('filipino-popular-grid');
+  skeletons(grid);
+  const data = await apiFetch('/discover/movie?with_original_language=tl&sort_by=popularity.desc&region=PH&');
+  if (data.results && data.results.length > 0) {
+    renderGrid(grid, data.results.slice(0, 16), 'filipino');
+  } else {
+    const fallback = await apiFetch('/discover/movie?region=PH&sort_by=popularity.desc&');
+    renderGrid(grid, fallback.results.slice(0, 16), 'filipino');
+  }
+}
+async function loadFilipinoLatest() {
+  const grid = document.getElementById('filipino-latest-grid');
+  skeletons(grid);
+  const data = await apiFetch('/discover/movie?with_original_language=tl&sort_by=primary_release_date.desc&region=PH&vote_count.gte=3&');
+  if (data.results && data.results.length > 0) {
+    renderGrid(grid, data.results.slice(0, 16), 'filipino');
+  } else {
+    const fallback = await apiFetch('/discover/movie?region=PH&sort_by=primary_release_date.desc&vote_count.gte=3&');
+    renderGrid(grid, fallback.results.slice(0, 16), 'filipino');
+  }
+}
+
 // SEARCH
 function handleSearch(e) {
   if (e.key === 'Enter') {
@@ -702,7 +915,9 @@ function openModalById(cid, type) {
 
 async function openModal(item, type) {
   currentItem = item;
-  currentItem.media_type = type;
+  // Map special types to underlying media type for server URLs
+  currentItem.media_type = ['anime','kdrama','manga'].includes(type) ? 'tv' : (type === 'filipino' ? 'movie' : type);
+  currentItem._displayType = type;
   currentSeason = 1;
   currentEpisode = 1;
   currentServerIndex = 0;
@@ -895,6 +1110,15 @@ function showToast(msg) {
   setTimeout(() => t.classList.remove('show'), 2500);
 }
 
+// Jump to section helper
+function jumpToSection(id) {
+  goHome();
+  setTimeout(() => {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 50);
+}
+
 // INIT
 (async function init() {
   loadHero();
@@ -902,6 +1126,11 @@ function showToast(msg) {
   loadMovies();
   loadTV();
   loadTopRated();
+  // Stagger new sections to avoid hammering TMDB
+  setTimeout(() => { loadAnimePopular(); loadAnimeLatest(); }, 200);
+  setTimeout(() => { loadMangaPopular(); loadMangaLatest(); }, 600);
+  setTimeout(() => { loadKdramaPopular(); loadKdramaLatest(); }, 1000);
+  setTimeout(() => { loadFilipinoPopular(); loadFilipinoLatest(); }, 1400);
 })();
 </script>
 </body>
