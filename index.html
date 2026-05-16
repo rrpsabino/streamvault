@@ -1,963 +1,166 @@
-# NovaPlay — Full Revamped index.html (Copy/Paste Ready)
-
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NovaPlay — Free Streaming</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
-<style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
-
-:root{
-  --bg:#070b14;
-  --surface:#0f1724;
-  --card:#111827;
-  --card2:#172033;
-  --border:#243044;
-
-  --accent:#7c3aed;
-  --accent2:#06b6d4;
-
-  --text:#f3f4f6;
-  --muted:#94a3b8;
-
-  --glow:0 0 40px rgba(124,58,237,.35);
-}
-
-body{
-  background:var(--bg);
-  color:var(--text);
-  font-family:'Inter',sans-serif;
-  overflow-x:hidden;
-}
-
-body::before{
-  content:'';
-  position:fixed;
-  inset:0;
-
-  background:
-    radial-gradient(circle at top left,rgba(124,58,237,.2),transparent 30%),
-    radial-gradient(circle at bottom right,rgba(6,182,212,.15),transparent 30%);
-
-  pointer-events:none;
-  z-index:-1;
-}
-
-nav{
-  position:fixed;
-  top:0;
-  left:0;
-  right:0;
-  z-index:1000;
-
-  height:72px;
-
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-
-  padding:0 34px;
-
-  background:linear-gradient(to bottom,rgba(0,0,0,.92),transparent);
-
-  backdrop-filter:blur(10px);
-}
-
-nav.scrolled{
-  background:rgba(7,11,20,.92);
-  border-bottom:1px solid rgba(255,255,255,.06);
-}
-
-.logo{
-  display:flex;
-  align-items:center;
-  gap:12px;
-
-  text-decoration:none;
-  color:#fff;
-
-  font-size:24px;
-  font-weight:800;
-}
-
-.logo-icon{
-  width:34px;
-  height:34px;
-
-  border-radius:12px;
-
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  box-shadow:var(--glow);
-}
-
-.nav-links{
-  display:flex;
-  gap:18px;
-  align-items:center;
-}
-
-.nav-link{
-  color:#cbd5e1;
-  text-decoration:none;
-
-  font-size:14px;
-  font-weight:600;
-
-  transition:.22s;
-}
-
-.nav-link:hover{
-  color:#fff;
-}
-
-.search-wrap{
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
-
-.search-box{
-  width:260px;
-
-  background:rgba(255,255,255,.06);
-
-  border:1px solid rgba(255,255,255,.08);
-
-  border-radius:14px;
-
-  padding:12px 16px;
-
-  color:#fff;
-
-  outline:none;
-}
-
-.hero{
-  position:relative;
-
-  width:100%;
-  height:100vh;
-  min-height:760px;
-
-  overflow:hidden;
-
-  display:flex;
-  align-items:flex-end;
-}
-
-.hero-bg{
-  position:absolute;
-  inset:0;
-
-  background-image:url('https://image.tmdb.org/t/p/original/7JXqNEBO3jWtwyaA2vM5Q1RbZlC.jpg');
-  background-size:cover;
-  background-position:center top;
-
-  filter:brightness(.28);
-
-  transform:scale(1.06);
-}
-
-.hero::after{
-  content:'';
-  position:absolute;
-  inset:0;
-
-  background:
-    linear-gradient(to top,var(--bg),transparent 35%),
-    linear-gradient(to right,var(--bg),transparent 55%),
-    radial-gradient(circle at center,rgba(124,58,237,.16),transparent 60%);
-}
-
-.hero-content{
-  position:relative;
-  z-index:2;
-
-  max-width:1380px;
-  width:100%;
-
-  margin:auto;
-
-  padding:0 48px 90px;
-}
-
-.hero-badge{
-  display:inline-flex;
-  align-items:center;
-
-  background:linear-gradient(135deg,var(--accent),#9333ea);
-
-  padding:8px 16px;
-
-  border-radius:999px;
-
-  font-size:11px;
-  font-weight:700;
-
-  margin-bottom:18px;
-
-  box-shadow:var(--glow);
-}
-
-.hero-title{
-  max-width:760px;
-
-  font-size:clamp(52px,8vw,96px);
-
-  line-height:.92;
-
-  letter-spacing:-3px;
-
-  font-weight:800;
-
-  margin-bottom:18px;
-}
-
-.hero-meta{
-  display:flex;
-  gap:14px;
-  flex-wrap:wrap;
-
-  margin-bottom:22px;
-}
-
-.meta-pill{
-  background:rgba(255,255,255,.08);
-
-  border:1px solid rgba(255,255,255,.08);
-
-  padding:7px 14px;
-
-  border-radius:999px;
-
-  font-size:12px;
-  font-weight:600;
-}
-
-.hero-desc{
-  max-width:700px;
-
-  font-size:16px;
-  line-height:1.8;
-
-  color:#d1d5db;
-
-  margin-bottom:30px;
-}
-
-.hero-actions{
-  display:flex;
-  gap:14px;
-  flex-wrap:wrap;
-}
-
-.play-btn{
-  background:linear-gradient(135deg,var(--accent),#9333ea);
-
-  border:none;
-
-  color:#fff;
-
-  padding:17px 28px;
-
-  border-radius:18px;
-
-  cursor:pointer;
-
-  font-size:15px;
-  font-weight:700;
-
-  box-shadow:var(--glow);
-}
-
-.secondary-btn{
-  background:rgba(255,255,255,.08);
-
-  border:1px solid rgba(255,255,255,.08);
-
-  color:#fff;
-
-  padding:17px 24px;
-
-  border-radius:18px;
-
-  cursor:pointer;
-
-  font-size:14px;
-  font-weight:600;
-}
-
-.content{
-  position:relative;
-  z-index:3;
-
-  max-width:1480px;
-
-  margin:auto;
-
-  padding:30px 42px 80px;
-}
-
-.section{
-  margin-bottom:46px;
-}
-
-.section-header{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-
-  margin-bottom:18px;
-}
-
-.section-title{
-  font-size:22px;
-  font-weight:800;
-}
-
-.section-link{
-  color:#cbd5e1;
-  text-decoration:none;
-
-  font-size:13px;
-  font-weight:700;
-}
-
-.row-scroll{
-  display:flex;
-  gap:18px;
-
-  overflow-x:auto;
-
-  padding-bottom:14px;
-
-  scroll-snap-type:x mandatory;
-}
-
-.row-scroll::-webkit-scrollbar{
-  height:5px;
-}
-
-.row-scroll::-webkit-scrollbar-thumb{
-  background:var(--border);
-  border-radius:999px;
-}
-
-.movie-card{
-  position:relative;
-
-  min-width:220px;
-
-  transition:.22s;
-
-  cursor:pointer;
-
-  scroll-snap-align:start;
-}
-
-.movie-card:hover{
-  transform:scale(1.06) translateY(-5px);
-  z-index:10;
-}
-
-.movie-poster{
-  position:relative;
-
-  overflow:hidden;
-
-  border-radius:22px;
-
-  aspect-ratio:2/3;
-
-  box-shadow:0 20px 60px rgba(0,0,0,.45);
-}
-
-.movie-poster img{
-  width:100%;
-  height:100%;
-
-  object-fit:cover;
-
-  display:block;
-}
-
-.movie-overlay{
-  position:absolute;
-  inset:0;
-
-  background:linear-gradient(to top,rgba(0,0,0,.95),transparent 60%);
-
-  opacity:0;
-
-  transition:.22s;
-
-  display:flex;
-  align-items:flex-end;
-
-  padding:16px;
-}
-
-.movie-card:hover .movie-overlay{
-  opacity:1;
-}
-
-.overlay-actions{
-  display:flex;
-  gap:10px;
-}
-
-.overlay-btn{
-  width:42px;
-  height:42px;
-
-  border-radius:50%;
-
-  border:none;
-
-  cursor:pointer;
-
-  background:rgba(255,255,255,.12);
-
-  color:#fff;
-
-  font-weight:700;
-}
-
-.movie-info{
-  padding-top:12px;
-}
-
-.movie-name{
-  font-size:14px;
-  font-weight:700;
-
-  margin-bottom:5px;
-}
-
-.movie-meta{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-
-  color:#94a3b8;
-
-  font-size:11px;
-}
-
-.trending-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:20px;
-}
-
-.big-card{
-  position:relative;
-
-  border-radius:24px;
-
-  overflow:hidden;
-
-  aspect-ratio:16/10;
-
-  cursor:pointer;
-
-  transition:.22s;
-}
-
-.big-card:hover{
-  transform:translateY(-4px);
-}
-
-.big-card img{
-  width:100%;
-  height:100%;
-
-  object-fit:cover;
-
-  filter:brightness(.72);
-}
-
-.big-card-content{
-  position:absolute;
-  inset:0;
-
-  background:linear-gradient(to top,rgba(0,0,0,.9),transparent 60%);
-
-  display:flex;
-  flex-direction:column;
-  justify-content:flex-end;
-
-  padding:22px;
-}
-
-.big-card-title{
-  font-size:24px;
-  font-weight:800;
-
-  margin-bottom:8px;
-}
-
-.big-card-meta{
-  font-size:12px;
-  color:#cbd5e1;
-}
-
-footer{
-  border-top:1px solid rgba(255,255,255,.06);
-
-  padding:40px;
-
-  text-align:center;
-
-  color:#94a3b8;
-
-  font-size:13px;
-}
-
-@media(max-width:860px){
-
-  .search-box{
-    display:none;
-  }
-
-  .hero-content,
-  .content{
-    padding-left:22px;
-    padding-right:22px;
-  }
-
-  .hero-title{
-    font-size:54px;
-  }
-
-  .movie-card{
-    min-width:170px;
-  }
-
-}
-
-@media(max-width:640px){
-
-  nav{
-    padding:0 18px;
-  }
-
-  .nav-links{
-    display:none;
-  }
-
-  .hero{
-    min-height:680px;
-  }
-
-  .hero-title{
-    font-size:44px;
-  }
-
-  .hero-desc{
-    font-size:14px;
-  }
-
-  .movie-card{
-    min-width:150px;
-  }
-
-}
-
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StreamHub — Movies & Shows</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --bg:#080910;--panel:#10121d;--panel2:#151827;--text:#f5f7fb;--muted:#8b93a7;
+      --line:#24283a;--brand:#e50914;--brand2:#ff7a18;--ok:#22c55e;--shadow:0 18px 60px rgba(0,0,0,.45)
+    }
+    body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+    a{color:inherit;text-decoration:none}button,input{font:inherit}
+    .nav{position:fixed;top:0;left:0;right:0;height:68px;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:0 34px;background:rgba(8,9,16,.78);backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,255,255,.06)}
+    .logo{font-weight:800;letter-spacing:-.05em;font-size:24px}.logo span{color:var(--brand)}
+    .navlinks{display:flex;gap:8px;align-items:center}.navlinks button{border:0;background:transparent;color:var(--muted);padding:9px 13px;border-radius:999px;cursor:pointer;font-weight:600;font-size:13px}.navlinks button:hover,.navlinks button.active{color:#fff;background:rgba(255,255,255,.08)}
+    .search{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.09);border-radius:999px;padding:10px 14px;min-width:280px}.search input{background:transparent;border:0;outline:0;color:#fff;width:100%}.search input::placeholder{color:#737b91}
+    .hero{min-height:720px;display:flex;align-items:end;position:relative;padding:120px 46px 76px;overflow:hidden}.hero::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#080910 0%,rgba(8,9,16,.78) 36%,rgba(8,9,16,.15) 75%),linear-gradient(0deg,#080910 0%,rgba(8,9,16,0) 42%,rgba(8,9,16,.75) 100%);z-index:1}.hero-bg{position:absolute;inset:0;background-size:cover;background-position:center;opacity:.72;transform:scale(1.02);transition:.6s ease}.hero-content{position:relative;z-index:2;max-width:720px}.kicker{display:flex;gap:8px;align-items:center;color:#fff;margin-bottom:16px}.live-dot{width:9px;height:9px;background:var(--ok);border-radius:50%;box-shadow:0 0 0 6px rgba(34,197,94,.14)}
+    h1{font-size:clamp(42px,8vw,82px);line-height:.94;letter-spacing:-.07em;margin-bottom:18px}.meta{display:flex;gap:12px;flex-wrap:wrap;color:#d6d9e4;margin-bottom:16px;font-weight:600;font-size:14px}.pill{border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.08);padding:5px 9px;border-radius:8px}.rating{color:#ffd166}.overview{color:#b8bece;line-height:1.7;max-width:620px;margin-bottom:28px}.actions{display:flex;gap:12px;flex-wrap:wrap}.btn{border:0;border-radius:12px;padding:13px 20px;font-weight:800;cursor:pointer;display:inline-flex;align-items:center;gap:10px}.btn.primary{background:linear-gradient(135deg,var(--brand),#b20710);color:#fff}.btn.secondary{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.12)}
+    main{padding:16px 34px 80px}.section{margin-top:34px}.section-head{display:flex;align-items:end;justify-content:space-between;margin-bottom:16px}.section h2{font-size:22px;letter-spacing:-.03em}.section p{color:var(--muted);font-size:13px}.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}.tab{border:1px solid var(--line);background:var(--panel);color:var(--muted);padding:8px 12px;border-radius:10px;cursor:pointer;font-weight:700;font-size:13px}.tab.active,.tab:hover{background:var(--brand);border-color:var(--brand);color:white}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:16px}.card{border-radius:18px;overflow:hidden;background:var(--panel);border:1px solid rgba(255,255,255,.06);cursor:pointer;position:relative;transition:.2s ease;box-shadow:0 8px 30px rgba(0,0,0,.18)}.card:hover{transform:translateY(-6px);box-shadow:var(--shadow);border-color:rgba(229,9,20,.45)}.poster{aspect-ratio:2/3;background:var(--panel2);position:relative}.poster img{width:100%;height:100%;object-fit:cover;display:block}.badge{position:absolute;top:10px;left:10px;background:rgba(0,0,0,.72);backdrop-filter:blur(8px);font-size:10px;font-weight:800;padding:5px 7px;border-radius:8px}.score{position:absolute;top:10px;right:10px;background:rgba(0,0,0,.72);backdrop-filter:blur(8px);font-size:11px;font-weight:800;padding:5px 7px;border-radius:8px;color:#ffd166}.card-body{padding:11px}.title{font-weight:800;font-size:13px;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.year{color:var(--muted);font-size:12px;margin-top:5px}
+    .banner{border:1px solid rgba(255,255,255,.07);background:linear-gradient(135deg,rgba(229,9,20,.18),rgba(255,122,24,.08));border-radius:24px;padding:22px;margin:40px 0 8px;display:flex;align-items:center;justify-content:space-between;gap:18px}.banner strong{font-size:24px;letter-spacing:-.04em}.banner span{color:var(--muted);font-size:14px}.empty,.loading{color:var(--muted);padding:26px;background:var(--panel);border:1px solid var(--line);border-radius:18px}.hidden{display:none!important}
+    @media(max-width:860px){.nav{padding:0 16px}.navlinks{display:none}.search{min-width:0;width:48vw}.hero{padding:110px 20px 54px;min-height:640px}main{padding:12px 16px 64px}.grid{grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:12px}.banner{align-items:flex-start;flex-direction:column}}
+  </style>
 </head>
 <body>
-
-<nav>
-
-  <a href="#" class="logo">
-    <div class="logo-icon">▶</div>
-    NovaPlay
-  </a>
-
-  <div class="nav-links">
-    <a href="#" class="nav-link">Home</a>
-    <a href="#" class="nav-link">Movies</a>
-    <a href="#" class="nav-link">TV Shows</a>
-    <a href="#" class="nav-link">Anime</a>
-    <a href="#" class="nav-link">Trending</a>
-  </div>
-
-  <div class="search-wrap">
-    <input class="search-box" placeholder="Search movies, anime, series...">
-  </div>
-
-</nav>
-
-<section class="hero">
-
-  <div class="hero-bg"></div>
-
-  <div class="hero-content">
-
-    <div class="hero-badge">
-      #1 STREAMING TODAY
+  <header class="nav">
+    <a class="logo" href="index.html">Stream<span>Hub</span></a>
+    <div class="navlinks">
+      <button class="active" onclick="jumpHome(this)">Home</button>
+      <button onclick="jumpTo('trending',this)">Trending</button>
+      <button onclick="jumpTo('movies',this)">Movies</button>
+      <button onclick="jumpTo('series',this)">Series</button>
+      <button onclick="jumpTo('anime',this)">Anime</button>
     </div>
+    <label class="search" aria-label="Search">
+      <span>⌕</span><input id="searchInput" placeholder="Search title..." autocomplete="off">
+    </label>
+  </header>
 
-    <h1 class="hero-title">
-      Spider‑Man Across the Spider‑Verse
-    </h1>
-
-    <div class="hero-meta">
-      <div class="meta-pill">★ 9.2</div>
-      <div class="meta-pill">2026</div>
-      <div class="meta-pill">4K HDR</div>
-      <div class="meta-pill">Action</div>
-      <div class="meta-pill">Animation</div>
+  <section class="hero" id="hero">
+    <div class="hero-bg" id="heroBg"></div>
+    <div class="hero-content" id="heroContent">
+      <div class="loading">Loading featured title...</div>
     </div>
-
-    <div class="hero-desc">
-      Miles Morales catapults across the Multiverse where he encounters a team of Spider‑People charged with protecting its existence. But when the heroes clash on how to handle a new threat, Miles must redefine what it means to be a hero.
-    </div>
-
-    <div class="hero-actions">
-
-      <button class="play-btn">
-        ▶ Watch Now
-      </button>
-
-      <button class="secondary-btn">
-        + Watchlist
-      </button>
-
-      <button class="secondary-btn">
-        Trailer
-      </button>
-
-    </div>
-
-  </div>
-
-</section>
-
-<div class="content">
-
-  <section class="section">
-
-    <div class="section-header">
-      <div class="section-title">Continue Watching</div>
-      <a href="#" class="section-link">View All</a>
-    </div>
-
-    <div class="row-scroll">
-
-      <div class="movie-card">
-        <div class="movie-poster">
-          <img src="https://image.tmdb.org/t/p/w500/9nhjGaFLKtddDPtPaX5EmKqsWdH.jpg">
-
-          <div class="movie-overlay">
-            <div class="overlay-actions">
-              <button class="overlay-btn">▶</button>
-              <button class="overlay-btn">+</button>
-              <button class="overlay-btn">i</button>
-            </div>
-          </div>
-
-        </div>
-
-        <div class="movie-info">
-          <div class="movie-name">The Batman</div>
-          <div class="movie-meta">
-            <span>Continue S1:E4</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="movie-card">
-        <div class="movie-poster">
-          <img src="https://image.tmdb.org/t/p/w500/wcKFYIiVDvRURrzglV9kGu7fpfY.jpg">
-
-          <div class="movie-overlay">
-            <div class="overlay-actions">
-              <button class="overlay-btn">▶</button>
-              <button class="overlay-btn">+</button>
-              <button class="overlay-btn">i</button>
-            </div>
-          </div>
-
-        </div>
-
-        <div class="movie-info">
-          <div class="movie-name">Deadpool</div>
-          <div class="movie-meta">
-            <span>Resume Watching</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="movie-card">
-        <div class="movie-poster">
-          <img src="https://image.tmdb.org/t/p/w500/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg">
-
-          <div class="movie-overlay">
-            <div class="overlay-actions">
-              <button class="overlay-btn">▶</button>
-              <button class="overlay-btn">+</button>
-              <button class="overlay-btn">i</button>
-            </div>
-          </div>
-
-        </div>
-
-        <div class="movie-info">
-          <div class="movie-name">Avengers Endgame</div>
-          <div class="movie-meta">
-            <span>1h remaining</span>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
   </section>
 
-  <section class="section">
+  <main>
+    <section class="section" id="searchSection" style="display:none">
+      <div class="section-head"><div><h2 id="searchTitle">Search results</h2><p>Results from TMDB metadata.</p></div><button class="tab" onclick="clearSearch()">Clear</button></div>
+      <div class="grid" id="searchGrid"></div>
+    </section>
 
-    <div class="section-header">
-      <div class="section-title">Trending Now</div>
-      <a href="#" class="section-link">See More</a>
+    <div id="homeSections">
+      <section class="section" id="trending">
+        <div class="section-head"><div><h2>Trending Now</h2><p>Movies and series people are watching this week.</p></div></div>
+        <div class="tabs" id="trendTabs">
+          <button class="tab active" onclick="loadTrending('all',this)">All</button>
+          <button class="tab" onclick="loadTrending('movie',this)">Movies</button>
+          <button class="tab" onclick="loadTrending('tv',this)">TV Shows</button>
+        </div>
+        <div class="grid" id="trendGrid"></div>
+      </section>
+
+      <section class="section" id="movies"><div class="section-head"><div><h2>Popular Movies</h2><p>Fresh movie picks with clean poster cards.</p></div></div><div class="grid" id="movieGrid"></div></section>
+      <section class="section" id="series"><div class="section-head"><div><h2>Popular Series</h2><p>Browse TV shows with episode support on the watch page.</p></div></div><div class="grid" id="tvGrid"></div></section>
+
+      <div class="banner" id="anime"><div><strong>Anime Corner</strong><br><span>Animation titles from TMDB. Add your own legal streams in watch.html.</span></div><button class="btn secondary" onclick="jumpTo('animeGridWrap')">View anime</button></div>
+      <section class="section" id="animeGridWrap"><div class="section-head"><div><h2>Popular Anime</h2><p>Japanese animation and animated series.</p></div></div><div class="grid" id="animeGrid"></div></section>
+      <section class="section"><div class="section-head"><div><h2>Top Rated Movies</h2><p>Highly rated titles for your homepage.</p></div></div><div class="grid" id="topGrid"></div></section>
     </div>
-
-    <div class="trending-grid">
-
-      <div class="big-card">
-        <img src="https://image.tmdb.org/t/p/original/7JXqNEBO3jWtwyaA2vM5Q1RbZlC.jpg">
-
-        <div class="big-card-content">
-          <div class="big-card-title">Spider‑Verse</div>
-          <div class="big-card-meta">Animation • Action • Adventure</div>
-        </div>
-      </div>
-
-      <div class="big-card">
-        <img src="https://image.tmdb.org/t/p/original/9nhjGaFLKtddDPtPaX5EmKqsWdH.jpg">
-
-        <div class="big-card-content">
-          <div class="big-card-title">The Batman</div>
-          <div class="big-card-meta">Crime • Thriller</div>
-        </div>
-      </div>
-
-      <div class="big-card">
-        <img src="https://image.tmdb.org/t/p/original/yDHYTfA3R0jFYba16jBB1ef8oIt.jpg">
-
-        <div class="big-card-content">
-          <div class="big-card-title">Wednesday</div>
-          <div class="big-card-meta">Mystery • Supernatural</div>
-        </div>
-      </div>
-
-    </div>
-
-  </section>
-
-  <section class="section">
-
-    <div class="section-header">
-      <div class="section-title">Top Movies</div>
-      <a href="#" class="section-link">Explore</a>
-    </div>
-
-    <div class="row-scroll">
-
-      <div class="movie-card">
-        <div class="movie-poster">
-          <img src="https://image.tmdb.org/t/p/w500/kDp1vUBnMpe8ak4rjgl3cLELqjU.jpg">
-          <div class="movie-overlay">
-            <div class="overlay-actions">
-              <button class="overlay-btn">▶</button>
-              <button class="overlay-btn">+</button>
-              <button class="overlay-btn">i</button>
-            </div>
-          </div>
-        </div>
-        <div class="movie-info">
-          <div class="movie-name">Interstellar</div>
-          <div class="movie-meta">
-            <span>★ 8.8</span>
-            <span>Sci‑Fi</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="movie-card">
-        <div class="movie-poster">
-          <img src="https://image.tmdb.org/t/p/w500/xDMIl84Qo5Tsu62c9DGWhmPI67A.jpg">
-          <div class="movie-overlay">
-            <div class="overlay-actions">
-              <button class="overlay-btn">▶</button>
-              <button class="overlay-btn">+</button>
-              <button class="overlay-btn">i</button>
-            </div>
-          </div>
-        </div>
-        <div class="movie-info">
-          <div class="movie-name">Oppenheimer</div>
-          <div class="movie-meta">
-            <span>Drama</span>
-            <span>History</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="movie-card">
-        <div class="movie-poster">
-          <img src="https://image.tmdb.org/t/p/w500/8cdWjvZQUExUUTzyp4t6EDMubfO.jpg">
-          <div class="movie-overlay">
-            <div class="overlay-actions">
-              <button class="overlay-btn">▶</button>
-              <button class="overlay-btn">+</button>
-              <button class="overlay-btn">i</button>
-            </div>
-          </div>
-        </div>
-        <div class="movie-info">
-          <div class="movie-name">Joker</div>
-          <div class="movie-meta">
-            <span>Crime</span>
-            <span>Thriller</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="movie-card">
-        <div class="movie-poster">
-          <img src="https://image.tmdb.org/t/p/w500/q719jXXEzOoYaps6babgKnONONX.jpg">
-          <div class="movie-overlay">
-            <div class="overlay-actions">
-              <button class="overlay-btn">▶</button>
-              <button class="overlay-btn">+</button>
-              <button class="overlay-btn">i</button>
-            </div>
-          </div>
-        </div>
-        <div class="movie-info">
-          <div class="movie-name">Dune Part Two</div>
-          <div class="movie-meta">
-            <span>Sci‑Fi</span>
-            <span>Adventure</span>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-  </section>
-
-  <section class="section">
-
-    <div class="section-header">
-      <div class="section-title">Anime Tonight</div>
-      <a href="#" class="section-link">Browse</a>
-    </div>
-
-    <div class="row-scroll">
-
-      <div class="movie-card">
-        <div class="movie-poster">
-          <img src="https://image.tmdb.org/t/p/w500/e1mjopzAS2KNsvpbpahQ1a6SkSn.jpg">
-        </div>
-        <div class="movie-info">
-          <div class="movie-name">One Piece</div>
-          <div class="movie-meta">
-            <span>Adventure</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="movie-card">
-        <div class="movie-poster">
-          <img src="https://image.tmdb.org/t/p/w500/9FAcJwI277KVj3YKvNssAptLFSy.jpg">
-        </div>
-        <div class="movie-info">
-          <div class="movie-name">Demon Slayer</div>
-          <div class="movie-meta">
-            <span>Fantasy</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="movie-card">
-        <div class="movie-poster">
-          <img src="https://image.tmdb.org/t/p/w500/xLal6fXNtiJN6Zw6qk21xAtdOeN.jpg">
-        </div>
-        <div class="movie-info">
-          <div class="movie-name">Attack on Titan</div>
-          <div class="movie-meta">
-            <span>Action</span>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-  </section>
-
-</div>
-
-<footer>
-  NovaPlay © 2026 — Free Streaming Platform UI
-</footer>
+  </main>
 
 <script>
+const TMDB_KEY = '4ef0d7355d9ffb5151e987764708ce96'; // Replace with your own TMDB key if needed.
+const TMDB = 'https://api.themoviedb.org/3';
+const IMG = 'https://image.tmdb.org/t/p/';
+let heroItems = [];
+let heroIndex = 0;
 
-window.addEventListener('scroll',()=>{
-
-  document.querySelector('nav')
-  .classList.toggle('scrolled',window.scrollY>40);
-
-});
-
-const cards=document.querySelectorAll('.movie-card');
-
-cards.forEach(card=>{
-
-  card.addEventListener('mouseenter',()=>{
-    card.style.zIndex='20';
-  });
-
-  card.addEventListener('mouseleave',()=>{
-    card.style.zIndex='1';
-  });
-
-});
-
-function saveContinueWatching(){
-
-  const data={
-    updated:Date.now()
-  };
-
-  localStorage.setItem(
-    'continueWatching',
-    JSON.stringify(data)
-  );
-
+async function api(path){
+  const join = path.includes('?') ? '&' : '?';
+  const res = await fetch(`${TMDB}${path}${join}api_key=${TMDB_KEY}`);
+  if(!res.ok) throw new Error('TMDB request failed');
+  return res.json();
 }
-
-setInterval(saveContinueWatching,15000);
-
+function poster(path,size='w342'){return path ? `${IMG}${size}${path}` : 'https://placehold.co/342x513/151827/8b93a7?text=No+Poster'}
+function backdrop(path){return path ? `${IMG}original${path}` : 'https://placehold.co/1600x900/080910/8b93a7?text=StreamHub'}
+function mediaType(item,fallback='movie'){return item.media_type || fallback}
+function titleOf(item){return item.title || item.name || 'Untitled'}
+function yearOf(item){return (item.release_date || item.first_air_date || '').slice(0,4) || '—'}
+function openWatch(item,type){
+  const mt = type || mediaType(item);
+  const slug = encodeURIComponent(titleOf(item).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''));
+  location.href = `watch.html?id=${item.id}&type=${mt}&slug=${slug}`;
+}
+function card(item,fallback){
+  const mt = mediaType(item,fallback);
+  const rating = item.vote_average ? item.vote_average.toFixed(1) : '—';
+  return `<article class="card" onclick='openWatch(${JSON.stringify({id:item.id,title:item.title,name:item.name,media_type:mt}).replace(/'/g,"&apos;")},"${mt}")'>
+    <div class="poster"><img src="${poster(item.poster_path)}" loading="lazy" alt="${titleOf(item).replace(/"/g,'&quot;')}"><span class="badge">${mt === 'tv' ? 'SERIES' : 'MOVIE'}</span><span class="score">★ ${rating}</span></div>
+    <div class="card-body"><div class="title">${titleOf(item)}</div><div class="year">${yearOf(item)}</div></div>
+  </article>`;
+}
+function renderGrid(id,items,fallback){
+  const el = document.getElementById(id);
+  el.innerHTML = items?.length ? items.map(i=>card(i,fallback)).join('') : '<div class="empty">No titles found.</div>';
+}
+function setLoading(id,count=12){document.getElementById(id).innerHTML = Array.from({length:count},()=>'<div class="loading">Loading...</div>').join('')}
+function showHero(i){
+  const item = heroItems[i]; if(!item) return;
+  heroIndex = i;
+  document.getElementById('heroBg').style.backgroundImage = `url(${backdrop(item.backdrop_path)})`;
+  document.getElementById('heroContent').innerHTML = `<div class="kicker"><span class="live-dot"></span><strong>Featured this week</strong></div>
+    <h1>${titleOf(item)}</h1>
+    <div class="meta"><span class="rating">★ ${(item.vote_average||0).toFixed(1)}</span><span>${yearOf(item)}</span><span class="pill">HD</span><span class="pill">${mediaType(item).toUpperCase()}</span></div>
+    <p class="overview">${item.overview || 'No overview available.'}</p>
+    <div class="actions"><button class="btn primary" onclick='openWatch(${JSON.stringify({id:item.id,title:item.title,name:item.name,media_type:mediaType(item)}).replace(/'/g,"&apos;")},"${mediaType(item)}")'>▶ Watch</button><button class="btn secondary" onclick="document.getElementById('trending').scrollIntoView({behavior:'smooth'})">Browse Titles</button></div>`;
+}
+async function loadHero(){
+  const data = await api('/trending/all/week?language=en-US');
+  heroItems = (data.results || []).filter(x=>x.backdrop_path).slice(0,6);
+  showHero(0);
+  setInterval(()=>showHero((heroIndex+1)%heroItems.length),7000);
+}
+async function loadTrending(type='all',btn){
+  document.querySelectorAll('#trendTabs .tab').forEach(b=>b.classList.remove('active')); if(btn) btn.classList.add('active');
+  setLoading('trendGrid');
+  const data = await api(`/trending/${type}/week?language=en-US`);
+  renderGrid('trendGrid',(data.results||[]).filter(x=>x.media_type!=='person').slice(0,18));
+}
+async function loadSection(id,path,fallback){setLoading(id); const d=await api(path); renderGrid(id,(d.results||[]).slice(0,18),fallback)}
+async function search(q){
+  if(!q.trim()) return clearSearch();
+  document.getElementById('homeSections').classList.add('hidden');
+  document.getElementById('searchSection').style.display='block';
+  document.getElementById('searchTitle').textContent = `Search results for “${q}”`;
+  setLoading('searchGrid',16);
+  const d = await api(`/search/multi?language=en-US&include_adult=false&query=${encodeURIComponent(q)}`);
+  renderGrid('searchGrid',(d.results||[]).filter(x=>x.media_type==='movie'||x.media_type==='tv').slice(0,24));
+}
+function clearSearch(){document.getElementById('searchInput').value='';document.getElementById('searchSection').style.display='none';document.getElementById('homeSections').classList.remove('hidden')}
+function jumpHome(btn){clearSearch(); window.scrollTo({top:0,behavior:'smooth'}); setActive(btn)}
+function jumpTo(id,btn){clearSearch(); document.getElementById(id)?.scrollIntoView({behavior:'smooth'}); if(btn) setActive(btn)}
+function setActive(btn){document.querySelectorAll('.navlinks button').forEach(b=>b.classList.remove('active')); btn?.classList.add('active')}
+let searchTimer; document.getElementById('searchInput').addEventListener('input',e=>{clearTimeout(searchTimer); searchTimer=setTimeout(()=>search(e.target.value),450)});
+(async function init(){
+  try{
+    await Promise.all([
+      loadHero(),loadTrending('all',document.querySelector('#trendTabs .tab')),
+      loadSection('movieGrid','/movie/popular?language=en-US','movie'),
+      loadSection('tvGrid','/tv/popular?language=en-US','tv'),
+      loadSection('animeGrid','/discover/tv?language=en-US&with_genres=16&with_original_language=ja&sort_by=popularity.desc','tv'),
+      loadSection('topGrid','/movie/top_rated?language=en-US','movie')
+    ]);
+  } catch(err){
+    document.body.insertAdjacentHTML('afterbegin','<div style="position:fixed;z-index:99;left:16px;right:16px;bottom:16px;background:#e50914;color:white;padding:14px;border-radius:12px">Could not load TMDB data. Check your internet connection or TMDB key.</div>')
+  }
+})();
 </script>
-
 </body>
 </html>
-```
