@@ -1,949 +1,110 @@
-# NovaPlay — Full Revamped Watch Page (Copy/Paste HTML)
-
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NovaPlay — Watch</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
-<style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
-
-:root{
-  --bg:#070b14;
-  --surface:#0f1724;
-  --card:#111827;
-  --card2:#172033;
-  --border:#243044;
-
-  --accent:#7c3aed;
-  --accent2:#06b6d4;
-
-  --text:#f3f4f6;
-  --muted:#94a3b8;
-  --white:#ffffff;
-
-  --glow:0 0 40px rgba(124,58,237,.35);
-}
-
-body{
-  background:var(--bg);
-  color:var(--text);
-  font-family:'Inter',sans-serif;
-  overflow-x:hidden;
-}
-
-body::before{
-  content:'';
-  position:fixed;
-  inset:0;
-  background:
-    radial-gradient(circle at top left,rgba(124,58,237,.22),transparent 30%),
-    radial-gradient(circle at bottom right,rgba(6,182,212,.18),transparent 30%);
-  pointer-events:none;
-  z-index:-1;
-}
-
-nav{
-  position:fixed;
-  top:0;
-  left:0;
-  right:0;
-  z-index:1000;
-
-  height:72px;
-
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-
-  padding:0 32px;
-
-  background:linear-gradient(to bottom,rgba(0,0,0,.9),transparent);
-
-  backdrop-filter:blur(10px);
-}
-
-.logo{
-  display:flex;
-  align-items:center;
-  gap:12px;
-
-  color:#fff;
-  text-decoration:none;
-
-  font-size:24px;
-  font-weight:800;
-}
-
-.logo-icon{
-  width:34px;
-  height:34px;
-
-  border-radius:12px;
-
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  box-shadow:var(--glow);
-}
-
-.nav-right{
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
-
-.nav-btn{
-  background:rgba(255,255,255,.06);
-  border:1px solid rgba(255,255,255,.08);
-
-  color:#fff;
-
-  padding:10px 18px;
-
-  border-radius:12px;
-
-  cursor:pointer;
-
-  font-weight:600;
-
-  transition:.25s;
-}
-
-.nav-btn:hover{
-  background:rgba(255,255,255,.12);
-}
-
-.hero{
-  position:relative;
-
-  width:100%;
-  height:100vh;
-  min-height:760px;
-
-  overflow:hidden;
-
-  display:flex;
-  align-items:flex-end;
-}
-
-.hero-bg{
-  position:absolute;
-  inset:0;
-
-  background-image:url('https://image.tmdb.org/t/p/original/9nhjGaFLKtddDPtPaX5EmKqsWdH.jpg');
-  background-size:cover;
-  background-position:center top;
-
-  filter:brightness(.32);
-
-  transform:scale(1.05);
-}
-
-.hero::after{
-  content:'';
-
-  position:absolute;
-  inset:0;
-
-  background:
-    linear-gradient(to top,var(--bg),transparent 40%),
-    linear-gradient(to right,var(--bg),transparent 55%),
-    radial-gradient(circle at center,rgba(124,58,237,.15),transparent 60%);
-}
-
-.hero-content{
-  position:relative;
-  z-index:2;
-
-  max-width:1280px;
-  width:100%;
-
-  margin:auto;
-
-  padding:0 48px 80px;
-
-  display:flex;
-  gap:36px;
-  align-items:flex-end;
-}
-
-.poster{
-  width:220px;
-  border-radius:24px;
-  overflow:hidden;
-
-  box-shadow:0 30px 80px rgba(0,0,0,.6);
-
-  border:1px solid rgba(255,255,255,.08);
-}
-
-.poster img{
-  width:100%;
-  display:block;
-}
-
-.meta{
-  max-width:760px;
-}
-
-.top-badge{
-  display:inline-flex;
-  align-items:center;
-
-  background:linear-gradient(135deg,var(--accent),#9333ea);
-
-  padding:8px 16px;
-
-  border-radius:999px;
-
-  font-size:11px;
-  font-weight:700;
-
-  margin-bottom:18px;
-
-  box-shadow:var(--glow);
-}
-
-.title{
-  font-size:clamp(44px,7vw,82px);
-  font-weight:800;
-
-  line-height:.95;
-
-  letter-spacing:-2px;
-
-  margin-bottom:18px;
-}
-
-.meta-row{
-  display:flex;
-  flex-wrap:wrap;
-  gap:16px;
-
-  margin-bottom:20px;
-
-  color:#d1d5db;
-}
-
-.meta-pill{
-  background:rgba(255,255,255,.08);
-  border:1px solid rgba(255,255,255,.08);
-
-  padding:6px 12px;
-
-  border-radius:999px;
-
-  font-size:12px;
-  font-weight:600;
-}
-
-.overview{
-  font-size:15px;
-  line-height:1.8;
-
-  color:#d1d5db;
-
-  margin-bottom:28px;
-
-  max-width:720px;
-}
-
-.action-row{
-  display:flex;
-  gap:14px;
-  flex-wrap:wrap;
-}
-
-.play-btn{
-  background:linear-gradient(135deg,var(--accent),#9333ea);
-
-  border:none;
-
-  color:#fff;
-
-  padding:16px 26px;
-
-  border-radius:16px;
-
-  cursor:pointer;
-
-  font-size:15px;
-  font-weight:700;
-
-  display:flex;
-  align-items:center;
-  gap:10px;
-
-  box-shadow:var(--glow);
-}
-
-.secondary-btn{
-  background:rgba(255,255,255,.08);
-  border:1px solid rgba(255,255,255,.08);
-
-  color:#fff;
-
-  padding:16px 22px;
-
-  border-radius:16px;
-
-  cursor:pointer;
-
-  font-size:14px;
-  font-weight:600;
-}
-
-.main-layout{
-  max-width:1400px;
-
-  margin:auto;
-
-  padding:40px 48px 80px;
-
-  display:grid;
-  grid-template-columns:1fr 360px;
-  gap:36px;
-}
-
-.player-wrap{
-  background:#000;
-
-  border-radius:26px;
-
-  overflow:hidden;
-
-  aspect-ratio:16/9;
-
-  border:1px solid rgba(255,255,255,.06);
-
-  box-shadow:
-    0 30px 80px rgba(0,0,0,.6),
-    0 0 80px rgba(124,58,237,.15);
-}
-
-.player-wrap iframe{
-  width:100%;
-  height:100%;
-  border:none;
-}
-
-.section{
-  margin-top:26px;
-}
-
-.section-title{
-  font-size:14px;
-  font-weight:700;
-
-  text-transform:uppercase;
-  letter-spacing:1px;
-
-  margin-bottom:14px;
-
-  color:#cbd5e1;
-}
-
-.server-grid{
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-}
-
-.server-btn{
-  background:rgba(255,255,255,.03);
-
-  border:1px solid rgba(255,255,255,.08);
-
-  color:#cbd5e1;
-
-  border-radius:14px;
-
-  padding:12px 16px;
-
-  cursor:pointer;
-
-  font-size:12px;
-  font-weight:600;
-
-  transition:.22s;
-
-  display:flex;
-  align-items:center;
-  gap:8px;
-}
-
-.server-btn:hover{
-  transform:translateY(-3px);
-  border-color:var(--accent);
-  color:#fff;
-}
-
-.server-btn.active{
-  background:rgba(124,58,237,.18);
-  border-color:var(--accent);
-  color:#fff;
-}
-
-.server-dot{
-  width:8px;
-  height:8px;
-
-  border-radius:50%;
-
-  background:#00e676;
-}
-
-.server-badge{
-  background:rgba(0,230,118,.12);
-
-  color:#00e676;
-
-  border:1px solid rgba(0,230,118,.2);
-
-  padding:2px 6px;
-
-  border-radius:999px;
-
-  font-size:9px;
-  font-weight:700;
-}
-
-.episode-grid{
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-}
-
-.episode-btn{
-  background:var(--card);
-  border:1px solid var(--border);
-
-  color:#cbd5e1;
-
-  border-radius:12px;
-
-  padding:10px 16px;
-
-  cursor:pointer;
-
-  transition:.22s;
-}
-
-.episode-btn:hover{
-  border-color:var(--accent);
-}
-
-.episode-btn.active{
-  background:linear-gradient(135deg,var(--accent),#9333ea);
-  border-color:transparent;
-}
-
-.sidebar-card{
-  background:rgba(255,255,255,.03);
-
-  border:1px solid rgba(255,255,255,.06);
-
-  border-radius:22px;
-
-  padding:20px;
-
-  margin-bottom:22px;
-}
-
-.sidebar-heading{
-  font-size:18px;
-  font-weight:700;
-
-  margin-bottom:16px;
-}
-
-.cast-list,
-.similar-list{
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-}
-
-.cast-card,
-.similar-card{
-  display:flex;
-  gap:12px;
-
-  background:rgba(255,255,255,.03);
-
-  border:1px solid rgba(255,255,255,.05);
-
-  border-radius:16px;
-
-  padding:10px;
-
-  transition:.22s;
-
-  cursor:pointer;
-}
-
-.cast-card:hover,
-.similar-card:hover{
-  transform:translateY(-3px) scale(1.02);
-  border-color:var(--accent);
-}
-
-.cast-avatar,
-.similar-thumb{
-  width:64px;
-  height:64px;
-
-  border-radius:14px;
-
-  object-fit:cover;
-}
-
-.similar-thumb{
-  width:70px;
-  height:100px;
-}
-
-.card-title{
-  font-size:13px;
-  font-weight:700;
-
-  margin-bottom:6px;
-}
-
-.card-sub{
-  font-size:11px;
-
-  color:var(--muted);
-}
-
-.horizontal-row{
-  margin-top:40px;
-}
-
-.row-scroll{
-  display:flex;
-  gap:18px;
-
-  overflow-x:auto;
-
-  padding-bottom:12px;
-}
-
-.row-scroll::-webkit-scrollbar{
-  height:5px;
-}
-
-.row-scroll::-webkit-scrollbar-thumb{
-  background:var(--border);
-  border-radius:999px;
-}
-
-.movie-card{
-  min-width:220px;
-
-  transition:.22s;
-
-  cursor:pointer;
-}
-
-.movie-card:hover{
-  transform:scale(1.05);
-}
-
-.movie-card img{
-  width:100%;
-  border-radius:20px;
-
-  margin-bottom:10px;
-}
-
-.movie-name{
-  font-size:13px;
-  font-weight:700;
-}
-
-.movie-meta{
-  font-size:11px;
-  color:var(--muted);
-}
-
-@media(max-width:980px){
-
-  .main-layout{
-    grid-template-columns:1fr;
-  }
-
-}
-
-@media(max-width:720px){
-
-  .hero-content{
-    flex-direction:column;
-    align-items:flex-start;
-
-    padding:0 22px 50px;
-  }
-
-  .poster{
-    width:160px;
-  }
-
-  .main-layout{
-    padding:20px;
-  }
-
-  .title{
-    font-size:44px;
-  }
-
-  nav{
-    padding:0 18px;
-  }
-
-}
-
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Watch — StreamHub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}:root{--bg:#080910;--panel:#10121d;--panel2:#151827;--text:#f5f7fb;--muted:#8b93a7;--line:#24283a;--brand:#e50914;--brand2:#ff7a18;--ok:#22c55e;--shadow:0 18px 60px rgba(0,0,0,.45)}
+    body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}a{color:inherit;text-decoration:none}button,select{font:inherit}
+    .nav{position:fixed;top:0;left:0;right:0;height:66px;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:0 34px;background:rgba(8,9,16,.78);backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,255,255,.06)}.logo{font-weight:800;letter-spacing:-.05em;font-size:23px}.logo span{color:var(--brand)}.back{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.07);color:white;border-radius:999px;padding:10px 14px;cursor:pointer;font-weight:800}
+    .hero{min-height:560px;display:flex;align-items:end;position:relative;padding:110px 46px 46px;overflow:hidden}.hero-bg{position:absolute;inset:0;background-size:cover;background-position:center;filter:brightness(.38);opacity:.9}.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#080910 0%,rgba(8,9,16,.78) 42%,rgba(8,9,16,.18) 100%),linear-gradient(0deg,#080910 0%,rgba(8,9,16,0) 54%)}.hero-inner{position:relative;z-index:2;display:flex;gap:24px;align-items:end;max-width:1180px}.poster{width:164px;aspect-ratio:2/3;border-radius:18px;overflow:hidden;background:var(--panel2);box-shadow:var(--shadow);border:1px solid rgba(255,255,255,.08);flex:0 0 auto}.poster img{width:100%;height:100%;object-fit:cover}.info{max-width:740px}.genres{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}.chip{font-size:12px;color:#d7dbe8;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.12);padding:6px 9px;border-radius:999px}h1{font-size:clamp(34px,6vw,68px);line-height:.96;letter-spacing:-.06em;margin-bottom:14px}.meta{display:flex;gap:12px;flex-wrap:wrap;color:#d6d9e4;margin-bottom:14px;font-weight:700;font-size:14px}.rating{color:#ffd166}.overview{color:#b8bece;line-height:1.7;max-width:700px}.wrap{max-width:1240px;margin:0 auto;padding:28px 34px 80px;display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:28px}
+    .player-card,.side-card{background:var(--panel);border:1px solid rgba(255,255,255,.07);border-radius:22px;box-shadow:0 10px 40px rgba(0,0,0,.18);overflow:hidden}.player-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;border-bottom:1px solid var(--line)}.player-title{font-weight:800}.quality{color:#fff;background:var(--brand);padding:5px 8px;border-radius:8px;font-size:12px;font-weight:900}.screen{aspect-ratio:16/9;background:#000;position:relative}.screen video,.screen iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000}.notice{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;color:var(--muted);padding:24px}.controls{padding:16px}.label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;font-weight:900;margin-bottom:10px}.servers{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}.srv{border:1px solid var(--line);background:var(--panel2);color:var(--muted);border-radius:12px;padding:10px 12px;cursor:pointer;font-weight:800;font-size:13px;display:flex;align-items:center;gap:8px}.srv:hover,.srv.active{border-color:var(--brand);color:white;background:rgba(229,9,20,.12)}.dot{width:8px;height:8px;border-radius:50%;background:var(--ok)}
+    .episode-tools{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}.episode-tools select{background:var(--panel2);border:1px solid var(--line);color:white;border-radius:12px;padding:10px;outline:0}.episodes{display:flex;gap:7px;flex-wrap:wrap;max-height:170px;overflow:auto}.ep{border:1px solid var(--line);background:var(--panel2);color:var(--muted);border-radius:10px;padding:8px 10px;cursor:pointer;font-weight:800;font-size:12px}.ep.active,.ep:hover{background:var(--brand);border-color:var(--brand);color:white}.hint{color:var(--muted);font-size:13px;line-height:1.65;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:14px}.hint code{color:white;background:#080910;padding:2px 6px;border-radius:6px}
+    .side-card{padding:16px;margin-bottom:18px}.side-card h3{font-size:16px;margin-bottom:12px}.trailer{aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:#000;border:1px solid var(--line);cursor:pointer;position:relative}.trailer img{width:100%;height:100%;object-fit:cover;filter:brightness(.78)}.play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:42px;text-shadow:0 6px 20px #000}.sim{display:flex;gap:10px;padding:10px;border-radius:14px;background:var(--panel2);border:1px solid var(--line);margin-bottom:10px;cursor:pointer}.sim:hover{border-color:var(--brand)}.sim img{width:54px;height:80px;border-radius:9px;object-fit:cover}.sim strong{font-size:13px;line-height:1.3;display:block}.sim span{font-size:12px;color:var(--muted)}.cast{display:grid;grid-template-columns:1fr 1fr;gap:8px}.person{background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:10px}.person strong{font-size:12px}.person span{display:block;color:var(--muted);font-size:11px;margin-top:3px}.loading,.empty{color:var(--muted);padding:18px}.modal{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:60;display:none;align-items:center;justify-content:center;padding:24px}.modal.show{display:flex}.modal-inner{width:min(960px,100%);aspect-ratio:16/9;position:relative}.modal iframe{width:100%;height:100%;border:0;border-radius:18px}.close{position:absolute;right:0;top:-44px;background:white;color:black;border:0;border-radius:999px;width:34px;height:34px;cursor:pointer;font-weight:900}
+    @media(max-width:950px){.wrap{grid-template-columns:1fr;padding:22px 16px 64px}.hero{padding:104px 16px 34px}.hero-inner{align-items:flex-start;flex-direction:column}.poster{width:122px}.nav{padding:0 16px}.cast{grid-template-columns:1fr}}
+  </style>
 </head>
 <body>
-
-<nav>
-
-  <a href="#" class="logo">
-    <div class="logo-icon">▶</div>
-    NovaPlay
-  </a>
-
-  <div class="nav-right">
-    <button class="nav-btn">Search</button>
-    <button class="nav-btn">Watchlist</button>
-  </div>
-
-</nav>
-
-<section class="hero">
-
-  <div class="hero-bg"></div>
-
-  <div class="hero-content">
-
-    <div class="poster">
-      <img src="https://image.tmdb.org/t/p/w500/q719jXXEzOoYaps6babgKnONONX.jpg">
-    </div>
-
-    <div class="meta">
-
-      <div class="top-badge">
-        TOP 10 TODAY
-      </div>
-
-      <h1 class="title">Dune: Part Two</h1>
-
-      <div class="meta-row">
-        <div class="meta-pill">★ 8.7</div>
-        <div class="meta-pill">2026</div>
-        <div class="meta-pill">4K Ultra HD</div>
-        <div class="meta-pill">Sci‑Fi</div>
-      </div>
-
-      <div class="overview">
-        Paul Atreides unites with Chani and the Fremen while seeking revenge against the conspirators who destroyed his family. Faced with a choice between love and destiny, he must prevent a terrible future only he can foresee.
-      </div>
-
-      <div class="action-row">
-
-        <button class="play-btn">
-          ▶ Watch Now
-        </button>
-
-        <button class="secondary-btn">
-          + Watchlist
-        </button>
-
-        <button class="secondary-btn">
-          Trailer
-        </button>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-<div class="main-layout">
-
-  <div>
-
-    <div class="player-wrap">
-      <iframe
-      src="https://vidlink.pro/movie/693134"
-      allowfullscreen></iframe>
-    </div>
-
-    <div class="section">
-
-      <div class="section-title">
-        Streaming Servers
-      </div>
-
-      <div class="server-grid">
-
-        <button class="server-btn active">
-          <div class="server-dot"></div>
-          VidLink
-          <span class="server-badge">LOW ADS</span>
-        </button>
-
-        <button class="server-btn">
-          <div class="server-dot"></div>
-          AutoEmbed
-          <span class="server-badge">FAST</span>
-        </button>
-
-        <button class="server-btn">
-          <div class="server-dot"></div>
-          SuperEmbed
-          <span class="server-badge">RECOMMENDED</span>
-        </button>
-
-        <button class="server-btn">
-          <div class="server-dot"></div>
-          RabbitStream
-          <span class="server-badge">MINIMAL ADS</span>
-        </button>
-
-        <button class="server-btn">
-          <div class="server-dot"></div>
-          Smashy Player
-        </button>
-
-      </div>
-
-    </div>
-
-    <div class="section">
-
-      <div class="section-title">
-        Episodes
-      </div>
-
-      <div class="episode-grid">
-
-        <button class="episode-btn active">Episode 1</button>
-        <button class="episode-btn">Episode 2</button>
-        <button class="episode-btn">Episode 3</button>
-        <button class="episode-btn">Episode 4</button>
-        <button class="episode-btn">Episode 5</button>
-        <button class="episode-btn">Episode 6</button>
-
-      </div>
-
-    </div>
-
-    <div class="horizontal-row">
-
-      <div class="section-title">
-        Continue Watching
-      </div>
-
-      <div class="row-scroll">
-
-        <div class="movie-card">
-          <img src="https://image.tmdb.org/t/p/w500/9nhjGaFLKtddDPtPaX5EmKqsWdH.jpg">
-          <div class="movie-name">The Batman</div>
-          <div class="movie-meta">Continue Episode 4</div>
-        </div>
-
-        <div class="movie-card">
-          <img src="https://image.tmdb.org/t/p/w500/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg">
-          <div class="movie-name">Avengers</div>
-          <div class="movie-meta">1h 14m remaining</div>
-        </div>
-
-        <div class="movie-card">
-          <img src="https://image.tmdb.org/t/p/w500/wcKFYIiVDvRURrzglV9kGu7fpfY.jpg">
-          <div class="movie-name">Deadpool</div>
-          <div class="movie-meta">Resume Watching</div>
-        </div>
-
-      </div>
-
-    </div>
-
-    <div class="horizontal-row">
-
-      <div class="section-title">
-        Recommended For You
-      </div>
-
-      <div class="row-scroll">
-
-        <div class="movie-card">
-          <img src="https://image.tmdb.org/t/p/w500/8cdWjvZQUExUUTzyp4t6EDMubfO.jpg">
-          <div class="movie-name">Joker</div>
-          <div class="movie-meta">Thriller • Crime</div>
-        </div>
-
-        <div class="movie-card">
-          <img src="https://image.tmdb.org/t/p/w500/xDMIl84Qo5Tsu62c9DGWhmPI67A.jpg">
-          <div class="movie-name">Oppenheimer</div>
-          <div class="movie-meta">Drama • History</div>
-        </div>
-
-        <div class="movie-card">
-          <img src="https://image.tmdb.org/t/p/w500/kDp1vUBnMpe8ak4rjgl3cLELqjU.jpg">
-          <div class="movie-name">Interstellar</div>
-          <div class="movie-meta">Sci‑Fi • Adventure</div>
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
-  <aside>
-
-    <div class="sidebar-card">
-
-      <div class="sidebar-heading">
-        Cast
-      </div>
-
-      <div class="cast-list">
-
-        <div class="cast-card">
-          <img class="cast-avatar" src="https://image.tmdb.org/t/p/w185/BE2sdjpgsa2rNTFa66f7upkaOP.jpg">
-          <div>
-            <div class="card-title">Timothée Chalamet</div>
-            <div class="card-sub">Paul Atreides</div>
-          </div>
-        </div>
-
-        <div class="cast-card">
-          <img class="cast-avatar" src="https://image.tmdb.org/t/p/w185/ha8n3oQA8k5jF6YONcaJT3YADfU.jpg">
-          <div>
-            <div class="card-title">Zendaya</div>
-            <div class="card-sub">Chani</div>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-
-    <div class="sidebar-card">
-
-      <div class="sidebar-heading">
-        Similar Titles
-      </div>
-
-      <div class="similar-list">
-
-        <div class="similar-card">
-          <img class="similar-thumb" src="https://image.tmdb.org/t/p/w185/yF1eOkaYvwiORauRCPWznV9xVvi.jpg">
-          <div>
-            <div class="card-title">Blade Runner 2049</div>
-            <div class="card-sub">Sci‑Fi • Mystery</div>
-          </div>
-        </div>
-
-        <div class="similar-card">
-          <img class="similar-thumb" src="https://image.tmdb.org/t/p/w185/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg">
-          <div>
-            <div class="card-title">Tenet</div>
-            <div class="card-sub">Action • Sci‑Fi</div>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-
-  </aside>
-
-</div>
-
+<header class="nav"><a class="logo" href="index.html">Stream<span>Hub</span></a><button class="back" onclick="history.length>1?history.back():location.href='index.html'">← Back</button></header>
+<section class="hero"><div class="hero-bg" id="heroBg"></div><div class="hero-inner" id="heroInner"><div class="loading">Loading title...</div></div></section>
+<main class="wrap"><section><div class="player-card"><div class="player-head"><div class="player-title" id="nowPlaying">Now Playing</div><span class="quality">HD</span></div><div class="screen" id="screen"><div class="notice">Loading player...</div></div><div class="controls"><div class="label">Select server</div><div class="servers" id="serverButtons"></div><div id="episodeBlock"></div><div class="hint"><strong>How to add your own working sources:</strong><br>Open <code>watch.html</code>, find <code>STREAM_SOURCES</code>, then paste your own legal MP4, HLS <code>.m3u8</code>, or YouTube trailer/embed links under the TMDB ID you want. This static setup works on GitHub Pages and Vercel.</div></div></div></section><aside id="sidebar"></aside></main>
+<div class="modal" id="modal" onclick="if(event.target.id==='modal')closeModal()"><div class="modal-inner"><button class="close" onclick="closeModal()">×</button><div id="modalContent"></div></div></div>
 <script>
+const TMDB_KEY = '4ef0d7355d9ffb5151e987764708ce96';
+const TMDB='https://api.themoviedb.org/3'; const IMG='https://image.tmdb.org/t/p/';
+let hls=null, details=null, mediaType='movie', season=1, episode=1, activeServer=0, trailerKey='';
 
-const servers=[
-  {
-    name:'VidLink',
-    badge:'LOW ADS',
-    url:'https://vidlink.pro/movie/693134'
+/*
+  Add your legal streaming files here.
+  Supported type values: 'mp4', 'hls', 'youtube', 'iframe'.
+  For movies: STREAM_SOURCES.movie[TMDB_ID] = [{ name, type, url }]
+  For TV: STREAM_SOURCES.tv[TMDB_ID][season][episode] = [{ name, type, url }]
+*/
+const STREAM_SOURCES = {
+  movie: {
+    default: [
+      {name:'Demo MP4', type:'mp4', url:'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'},
+      {name:'Demo HLS', type:'hls', url:'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8'}
+    ]
+    // Example:
+    // 550: [{name:'My Server', type:'mp4', url:'https://your-domain.com/movie.mp4'}]
   },
-  {
-    name:'AutoEmbed',
-    badge:'FAST',
-    url:'https://player.autoembed.cc/embed/movie/693134'
-  },
-  {
-    name:'RabbitStream',
-    badge:'MINIMAL ADS',
-    url:'https://rabbitstream.net/embed/693134'
-  },
-  {
-    name:'SuperEmbed',
-    badge:'RECOMMENDED',
-    url:'https://multiembed.mov/?video_id=693134&tmdb=1'
+  tv: {
+    default: {
+      1: {
+        1: [
+          {name:'Episode Demo MP4', type:'mp4', url:'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4'},
+          {name:'Episode Demo HLS', type:'hls', url:'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8'}
+        ],
+        2: [{name:'Episode 2 Demo', type:'mp4', url:'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4'}]
+      }
+    }
   }
-];
-
-const iframe=document.querySelector('iframe');
-const buttons=document.querySelectorAll('.server-btn');
-
-buttons.forEach((btn,index)=>{
-
-  btn.addEventListener('click',()=>{
-
-    buttons.forEach(x=>x.classList.remove('active'));
-
-    btn.classList.add('active');
-
-    iframe.src=servers[index].url;
-
-  });
-
-});
-
-window.addEventListener('scroll',()=>{
-
-  document.querySelector('nav')
-  .classList.toggle('scrolled',window.scrollY>40);
-
-});
-
-function saveContinueWatching(){
-
-  const data={
-    title:'Dune Part Two',
-    updated:Date.now()
-  };
-
-  localStorage.setItem(
-    'continueWatching',
-    JSON.stringify(data)
-  );
-
+};
+async function api(path){const j=path.includes('?')?'&':'?';const r=await fetch(`${TMDB}${path}${j}api_key=${TMDB_KEY}`);if(!r.ok)throw new Error('TMDB failed');return r.json()}
+function img(p,size='w342'){return p?`${IMG}${size}${p}`:'https://placehold.co/342x513/151827/8b93a7?text=No+Image'}
+function bg(p){return p?`${IMG}original${p}`:'https://placehold.co/1600x900/080910/8b93a7?text=StreamHub'}
+function titleOf(x){return x.title||x.name||'Untitled'}function yearOf(x){return (x.release_date||x.first_air_date||'').slice(0,4)||'—'}
+function getSources(){
+  const id=String(details.id);
+  if(mediaType==='tv'){
+    return STREAM_SOURCES.tv[id]?.[season]?.[episode] || STREAM_SOURCES.tv.default?.[season]?.[episode] || [];
+  }
+  return STREAM_SOURCES.movie[id] || STREAM_SOURCES.movie.default || [];
 }
-
-setInterval(saveContinueWatching,15000);
-
+function allSources(){
+  const list=[...getSources()];
+  if(trailerKey) list.push({name:'Trailer',type:'youtube',url:`https://www.youtube.com/embed/${trailerKey}?autoplay=1&rel=0&modestbranding=1`});
+  return list;
+}
+function renderServers(){
+  const list=allSources();
+  document.getElementById('serverButtons').innerHTML=list.map((s,i)=>`<button class="srv ${i===activeServer?'active':''}" onclick="selectServer(${i})"><span class="dot"></span>${s.name}</button>`).join('')||'<div class="empty">No servers configured.</div>';
+}
+function selectServer(i){activeServer=i;renderServers();loadPlayer(allSources()[i])}
+function loadPlayer(src){
+  const screen=document.getElementById('screen'); if(hls){hls.destroy();hls=null}
+  if(!src){screen.innerHTML='<div class="notice">No playable source. Add your own source in STREAM_SOURCES.</div>';return}
+  document.getElementById('nowPlaying').textContent=`Now Playing • ${src.name}`;
+  if(src.type==='youtube'||src.type==='iframe') screen.innerHTML=`<iframe src="${src.url}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`;
+  else {screen.innerHTML='<video id="video" controls playsinline crossorigin="anonymous"></video>';const v=document.getElementById('video');if(src.type==='hls'&&Hls.isSupported()){hls=new Hls();hls.loadSource(src.url);hls.attachMedia(v)}else{v.src=src.url}v.play().catch(()=>{})}
+}
+function renderEpisodes(){
+  if(mediaType!=='tv'){document.getElementById('episodeBlock').innerHTML='';return}
+  const totalSeasons=details.number_of_seasons||1;
+  const episodeCount=(details.seasons?.find(s=>s.season_number===season)?.episode_count)||12;
+  document.getElementById('episodeBlock').innerHTML=`<div class="label">Episodes</div><div class="episode-tools"><select onchange="season=Number(this.value);episode=1;activeServer=0;renderEpisodes();renderServers();selectServer(0)">${Array.from({length:totalSeasons},(_,i)=>`<option value="${i+1}" ${season===i+1?'selected':''}>Season ${i+1}</option>`).join('')}</select></div><div class="episodes">${Array.from({length:episodeCount},(_,i)=>`<button class="ep ${episode===i+1?'active':''}" onclick="episode=${i+1};activeServer=0;renderEpisodes();renderServers();selectServer(0)">E${i+1}</button>`).join('')}</div>`;
+}
+function openTrailer(){if(!trailerKey)return;document.getElementById('modalContent').innerHTML=`<iframe src="https://www.youtube.com/embed/${trailerKey}?autoplay=1&rel=0&modestbranding=1" allow="autoplay; fullscreen" allowfullscreen></iframe>`;document.getElementById('modal').classList.add('show')}
+function closeModal(){document.getElementById('modal').classList.remove('show');document.getElementById('modalContent').innerHTML=''}
+function simCard(x){const mt=mediaType;return `<div class="sim" onclick="location.href='watch.html?id=${x.id}&type=${mt}'"><img src="${img(x.poster_path,'w185')}"><div><strong>${titleOf(x)}</strong><span>${yearOf(x)} · ★ ${x.vote_average?x.vote_average.toFixed(1):'—'}</span></div></div>`}
+async function init(){
+  const p=new URLSearchParams(location.search); const id=p.get('id'); mediaType=p.get('type')||'movie'; if(!id){document.getElementById('heroInner').innerHTML='<div class="empty">No title selected.</div>';return}
+  const [d,credits,videos,similar]=await Promise.all([api(`/${mediaType}/${id}?language=en-US`),api(`/${mediaType}/${id}/credits?language=en-US`),api(`/${mediaType}/${id}/videos?language=en-US`),api(`/${mediaType}/${id}/similar?language=en-US`)]);
+  details=d; document.title=`${titleOf(d)} — StreamHub`;
+  const yt=(videos.results||[]).find(v=>v.site==='YouTube'&&v.type==='Trailer')||(videos.results||[]).find(v=>v.site==='YouTube'); trailerKey=yt?.key||'';
+  document.getElementById('heroBg').style.backgroundImage=`url(${bg(d.backdrop_path)})`;
+  document.getElementById('heroInner').innerHTML=`<div class="poster"><img src="${img(d.poster_path)}" alt="${titleOf(d)}"></div><div class="info"><div class="genres">${(d.genres||[]).map(g=>`<span class="chip">${g.name}</span>`).join('')}</div><h1>${titleOf(d)}</h1><div class="meta"><span class="rating">★ ${d.vote_average?d.vote_average.toFixed(1):'—'}</span><span>${yearOf(d)}</span><span>${d.status||'HD'}</span><span>${mediaType.toUpperCase()}</span></div><p class="overview">${d.overview||'No overview available.'}</p></div>`;
+  renderEpisodes();renderServers();selectServer(0);
+  const trailerThumb=d.backdrop_path?img(d.backdrop_path,'w780'):img(d.poster_path,'w342');
+  document.getElementById('sidebar').innerHTML=`<div class="side-card"><h3>Trailer</h3>${trailerKey?`<div class="trailer" onclick="openTrailer()"><img src="${trailerThumb}"><div class="play">▶</div></div>`:'<div class="empty">No trailer found.</div>'}</div><div class="side-card"><h3>Cast</h3><div class="cast">${(credits.cast||[]).slice(0,6).map(c=>`<div class="person"><strong>${c.name}</strong><span>${c.character||'Cast'}</span></div>`).join('')||'<div class="empty">No cast data.</div>'}</div></div><div class="side-card"><h3>More Like This</h3>${(similar.results||[]).slice(0,6).map(simCard).join('')||'<div class="empty">No similar titles.</div>'}</div>`;
+}
+init().catch(()=>{document.getElementById('heroInner').innerHTML='<div class="empty">Could not load this title. Check your TMDB key or connection.</div>'});
 </script>
-
 </body>
 </html>
-```
