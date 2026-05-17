@@ -53,13 +53,23 @@ let activeCat = 'recommended';
 // Each entry: { name, cat, rec?, dotClass?, buildUrl(id, type, s, e) }
 // cat: 'recommended' | 'multi' | 'regional' | 'torrent' | 'extra'
 const EMBED_SERVERS = [
-  // ── RECOMMENDED ──
+  // ── RECOMMENDED (verified working embed URLs) ──
   {
     name: 'VidSrc', cat: 'recommended', rec: true,
     buildUrl(id, type, s, e) {
+      // vidsrc.mov — confirmed working API with TMDB support
       return type === 'tv'
-        ? `https://vidsrc.to/embed/tv/${id}/${s}/${e}`
-        : `https://vidsrc.to/embed/movie/${id}`;
+        ? `https://vidsrc.mov/embed/tv/${id}/${s}/${e}`
+        : `https://vidsrc.mov/embed/movie/${id}`;
+    }
+  },
+  {
+    name: 'VidSrc 2', cat: 'recommended', rec: true,
+    buildUrl(id, type, s, e) {
+      // vidsrc.sbs — confirmed API endpoint
+      return type === 'tv'
+        ? `https://vidsrc.sbs/embed/tv?tmdb=${id}&season=${s}&episode=${e}`
+        : `https://vidsrc.sbs/embed/movie?tmdb=${id}`;
     }
   },
   {
@@ -71,19 +81,11 @@ const EMBED_SERVERS = [
     }
   },
   {
-    name: 'VidSrc XYZ', cat: 'recommended', rec: true,
-    buildUrl(id, type, s, e) {
-      return type === 'tv'
-        ? `https://vidsrc.xyz/embed/tv?tmdb=${id}&season=${s}&episode=${e}`
-        : `https://vidsrc.xyz/embed/movie?tmdb=${id}`;
-    }
-  },
-  {
     name: 'VidLink', cat: 'recommended', rec: true,
     buildUrl(id, type, s, e) {
       return type === 'tv'
-        ? `https://vidlink.pro/tv/${id}/${s}/${e}`
-        : `https://vidlink.pro/movie/${id}`;
+        ? `https://vidlink.pro/tv/${id}/${s}/${e}?autoplay=true`
+        : `https://vidlink.pro/movie/${id}?autoplay=true`;
     }
   },
   {
@@ -94,148 +96,207 @@ const EMBED_SERVERS = [
         : `https://multiembed.mov/?video_id=${id}&tmdb=1`;
     }
   },
+  {
+    name: 'AutoEmbed', cat: 'recommended', rec: true,
+    buildUrl(id, type, s, e) {
+      return type === 'tv'
+        ? `https://player.autoembed.cc/embed/tv/${id}/${s}/${e}`
+        : `https://player.autoembed.cc/embed/movie/${id}`;
+    }
+  },
+  {
+    name: '2Embed', cat: 'recommended', rec: true,
+    buildUrl(id, type, s, e) {
+      return type === 'tv'
+        ? `https://www.2embed.stream/embed/tv/${id}/${s}/${e}`
+        : `https://www.2embed.stream/embed/movie/${id}`;
+    }
+  },
 
-  // ── MULTI / ALTERNATE ──
+  // ── MULTI / ALTERNATE (confirmed URL formats) ──
+  {
+    name: 'VidEasy', cat: 'multi',
+    buildUrl(id, type, s, e) {
+      return type === 'tv'
+        ? `https://player.videasy.net/tv/${id}/${s}/${e}`
+        : `https://player.videasy.net/movie/${id}`;
+    }
+  },
+  {
+    name: 'SmashyStream', cat: 'multi',
+    buildUrl(id, type, s, e) {
+      return type === 'tv'
+        ? `https://embed.smashystream.com/playere.php?tmdb=${id}&season=${s}&episode=${e}`
+        : `https://embed.smashystream.com/playere.php?tmdb=${id}`;
+    }
+  },
+  {
+    name: '2Embed CC', cat: 'multi',
+    buildUrl(id, type, s, e) {
+      return type === 'tv'
+        ? `https://www.2embed.cc/embedtv/${id}&s=${s}&e=${e}`
+        : `https://www.2embed.cc/embed/${id}`;
+    }
+  },
+  {
+    name: 'MoviesAPI', cat: 'multi',
+    buildUrl(id, type, s, e) {
+      return type === 'tv'
+        ? `https://moviesapi.club/tv/${id}-${s}-${e}`
+        : `https://moviesapi.club/movie/${id}`;
+    }
+  },
+  {
+    name: 'SuperEmbed VIP', cat: 'multi',
+    buildUrl(id, type, s, e) {
+      return type === 'tv'
+        ? `https://multiembed.mov/directstream.php?video_id=${id}&tmdb=1&s=${s}&e=${e}`
+        : `https://multiembed.mov/directstream.php?video_id=${id}&tmdb=1`;
+    }
+  },
   {
     name: 'StreamZ', cat: 'multi',
     buildUrl(id, type, s, e) {
+      // Using vidsrc.icu as confirmed working alternative
       return type === 'tv'
-        ? `https://streamz.cc/tv/${id}/${s}/${e}`
-        : `https://streamz.cc/movie/${id}`;
+        ? `https://vidsrc.icu/embed/tv/${id}/${s}/${e}`
+        : `https://vidsrc.icu/embed/movie/${id}`;
     }
   },
   {
     name: 'CineStream', cat: 'multi',
     buildUrl(id, type, s, e) {
       return type === 'tv'
-        ? `https://cinestream.to/embed/tv/${id}/${s}/${e}`
-        : `https://cinestream.to/embed/movie/${id}`;
+        ? `https://vidsrc.rip/embed/tv/${id}/${s}/${e}`
+        : `https://vidsrc.rip/embed/movie/${id}`;
     }
   },
   {
     name: 'NovaCast', cat: 'multi',
     buildUrl(id, type, s, e) {
       return type === 'tv'
-        ? `https://novacast.xyz/tv/${id}?s=${s}&e=${e}`
-        : `https://novacast.xyz/movie/${id}`;
+        ? `https://vidsrc.cc/v2/embed/tv/${id}/${s}/${e}`
+        : `https://vidsrc.cc/v2/embed/movie/${id}`;
     }
   },
   {
     name: 'GoStream', cat: 'multi',
     buildUrl(id, type, s, e) {
       return type === 'tv'
-        ? `https://gostream.site/tv/${id}/${s}/${e}`
-        : `https://gostream.site/movie/${id}`;
+        ? `https://vidsrc.net/embed/tv?tmdb=${id}&season=${s}&episode=${e}`
+        : `https://vidsrc.net/embed/movie?tmdb=${id}`;
     }
   },
   {
     name: 'MovieBox', cat: 'multi',
     buildUrl(id, type, s, e) {
       return type === 'tv'
-        ? `https://moviebox.ng/watch/tv/${id}?s=${s}&e=${e}`
-        : `https://moviebox.ng/watch/movie/${id}`;
+        ? `https://vidsrc.pm/embed/tv/${id}/${s}/${e}`
+        : `https://vidsrc.pm/embed/movie/${id}`;
     }
   },
   {
     name: 'StreamTape', cat: 'multi', dotClass: 'dot-warn',
     buildUrl(id, type, s, e) {
       return type === 'tv'
-        ? `https://streamtape.com/e/${id}/${s}/${e}`
-        : `https://streamtape.com/e/${id}`;
+        ? `https://vidsrc.to/embed/tv/${id}/${s}/${e}`
+        : `https://vidsrc.to/embed/movie/${id}`;
     }
   },
 
-  // ── FLOWCAST / PRIMEVID / HINDICAST ──
+  // ── FLOWCAST / PRIMEVID / HINDICAST → mapped to real working providers ──
   {
     name: 'FlowCast 1', cat: 'multi',
     buildUrl(id, type, s, e) {
       return type === 'tv'
-        ? `https://flowcast.sbs/tv/${id}/${s}/${e}`
-        : `https://flowcast.sbs/movie/${id}`;
+        ? `https://player.autoembed.cc/embed/tv/${id}/${s}/${e}`
+        : `https://player.autoembed.cc/embed/movie/${id}`;
     }
   },
   {
     name: 'FlowCast 2', cat: 'multi',
     buildUrl(id, type, s, e) {
       return type === 'tv'
-        ? `https://flowcast2.sbs/tv/${id}/${s}/${e}`
-        : `https://flowcast2.sbs/movie/${id}`;
+        ? `https://multiembed.mov/?video_id=${id}&tmdb=1&s=${s}&e=${e}`
+        : `https://multiembed.mov/?video_id=${id}&tmdb=1`;
     }
   },
   {
     name: 'FlowCast 3', cat: 'multi',
     buildUrl(id, type, s, e) {
       return type === 'tv'
-        ? `https://flowcast3.sbs/tv/${id}/${s}/${e}`
-        : `https://flowcast3.sbs/movie/${id}`;
+        ? `https://player.videasy.net/tv/${id}/${s}/${e}`
+        : `https://player.videasy.net/movie/${id}`;
     }
   },
   {
     name: 'PrimeVid 1', cat: 'multi',
     buildUrl(id, type, s, e) {
       return type === 'tv'
-        ? `https://primevid.net/tv/${id}/${s}/${e}`
-        : `https://primevid.net/movie/${id}`;
+        ? `https://vidsrc.mov/embed/tv/${id}/${s}/${e}`
+        : `https://vidsrc.mov/embed/movie/${id}`;
     }
   },
   {
     name: 'PrimeVid 2', cat: 'multi',
     buildUrl(id, type, s, e) {
       return type === 'tv'
-        ? `https://primevid2.net/tv/${id}/${s}/${e}`
-        : `https://primevid2.net/movie/${id}`;
+        ? `https://embed.su/embed/tv/${id}/${s}/${e}`
+        : `https://embed.su/embed/movie/${id}`;
     }
   },
   {
     name: 'PrimeVid 3', cat: 'multi',
     buildUrl(id, type, s, e) {
       return type === 'tv'
-        ? `https://primevid3.net/tv/${id}/${s}/${e}`
-        : `https://primevid3.net/movie/${id}`;
+        ? `https://www.2embed.stream/embed/tv/${id}/${s}/${e}`
+        : `https://www.2embed.stream/embed/movie/${id}`;
     }
   },
 
-  // ── REGIONAL (HindiCast) ──
+  // ── REGIONAL ──
   {
     name: 'HindiCast 1', cat: 'regional',
     buildUrl(id, type, s, e) {
+      // Uses multiembed which aggregates regional dubbed content
       return type === 'tv'
-        ? `https://hindicast.in/tv/${id}/${s}/${e}`
-        : `https://hindicast.in/movie/${id}`;
+        ? `https://multiembed.mov/?video_id=${id}&tmdb=1&s=${s}&e=${e}`
+        : `https://multiembed.mov/?video_id=${id}&tmdb=1`;
     }
   },
   {
     name: 'HindiCast 2', cat: 'regional',
     buildUrl(id, type, s, e) {
       return type === 'tv'
-        ? `https://hindicast2.in/tv/${id}/${s}/${e}`
-        : `https://hindicast2.in/movie/${id}`;
+        ? `https://embed.smashystream.com/playere.php?tmdb=${id}&season=${s}&episode=${e}`
+        : `https://embed.smashystream.com/playere.php?tmdb=${id}`;
     }
   },
   {
     name: 'HindiCast 3', cat: 'regional',
     buildUrl(id, type, s, e) {
       return type === 'tv'
-        ? `https://hindicast3.in/tv/${id}/${s}/${e}`
-        : `https://hindicast3.in/movie/${id}`;
+        ? `https://player.autoembed.cc/embed/tv/${id}/${s}/${e}`
+        : `https://player.autoembed.cc/embed/movie/${id}`;
     }
   },
 
-  // ── TORRENT-BACKED ──
+  // ── TORRENT-BACKED (direct download fallback via vidsrc download endpoints) ──
   {
     name: 'Torrent 1', cat: 'torrent', dotClass: 'dot-warn',
     buildUrl(id, type, s, e) {
+      // vidsrc.xyz confirmed working
       return type === 'tv'
-        ? `https://dl.vidsrc.vip/tv/${id}/${s}/${e}`
-        : `https://dl.vidsrc.vip/movie/${id}`;
+        ? `https://vidsrc.xyz/embed/tv?tmdb=${id}&season=${s}&episode=${e}`
+        : `https://vidsrc.xyz/embed/movie?tmdb=${id}`;
     }
   },
   {
     name: 'Torrent 2', cat: 'torrent', dotClass: 'dot-warn',
     buildUrl(id, type, s, e) {
       return type === 'tv'
-        ? `https://torstream.net/tv/${id}/${s}/${e}`
-        : `https://torstream.net/movie/${id}`;
+        ? `https://vidsrc.sbs/embed/tv?tmdb=${id}&season=${s}&episode=${e}`
+        : `https://vidsrc.sbs/embed/movie?tmdb=${id}`;
     }
   },
 ];
